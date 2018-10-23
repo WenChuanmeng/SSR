@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/search_room
+    jdbc-url: jdbc:mysql://localhost:3306/search_room
     username: root
     password: root
   jpa:
@@ -11,10 +11,18 @@ spring:
       ddl-auto: validate
   session:
     store-type: jdbc
-  security:
-    user:
-      name: root
-      password: root
 
+  thymeleaf:
+    cache: false
+    mode: HTML
+    suffix: .html
+    prefix: classpath:/templates/
+#  devtools:
+#    restart:
+#      exclude: templates/**,static/**
+server:
+  error:
+    whitelabel:
+      enabled: false
 # sql日志打印 设置
 
