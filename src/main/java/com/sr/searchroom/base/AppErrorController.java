@@ -47,13 +47,13 @@ public class AppErrorController implements ErrorController {
 
         switch (status) {
             case 400:
-                return "400";
+                return "user/400";
             case 403:
-                return "403";
+                return "user/403";
             case 404:
-                return "404";
+                return "user/404";
             case 500:
-                return "500";
+                return "user/500";
         }
         return "index";
     }

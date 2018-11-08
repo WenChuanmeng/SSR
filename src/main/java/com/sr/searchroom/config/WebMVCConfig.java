@@ -57,6 +57,8 @@ public class WebMVCConfig implements WebMvcConfigurer,ApplicationContextAware {
         templateEngine.setTemplateResolver(templateResolver());
         //支持EL表达式
         templateEngine.setEnableSpringELCompiler(true);
+        //spring security 方言
+        SpringDi
         return templateEngine;
     }
 

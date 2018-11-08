@@ -25,6 +25,7 @@
         <thymeleaf.vesion>3.0.10.RELEASE</thymeleaf.vesion>
         <thymeleaf-spring5.version>3.0.10.RELEASE</thymeleaf-spring5.version>
         <elasticsearch.version>6.3.2</elasticsearch.version>
+        <thymeleaf-extras-springsecurity4.version>3.0.2.RELEASE</thymeleaf-extras-springsecurity4.version>
     </properties>
 
     <dependencies>
@@ -102,6 +103,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- Tymeleaf 方言支持SpringSecurity 依赖 -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>${thymeleaf-extras-springsecurity4.version}</version>
         </dependency>
     </dependencies>
 

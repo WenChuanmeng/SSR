@@ -19,7 +19,7 @@ public class HomeController {
     public String index(Model model) {
         model.addAttribute("title","欢迎欢迎");
         //model.addAttribute("name","张三ABCdef123");
-        return "index";
+        return "user/index";
     }
 
     /**
@@ -38,7 +38,7 @@ public class HomeController {
      */
     @RequestMapping(value = "/500")
     public String errorPage() {
-        return "500";
+        return "user/500";
     }
 
     /**
@@ -47,7 +47,7 @@ public class HomeController {
      */
     @RequestMapping(value = "/403")
     public String forbidden() {
-        return "403";
+        return "user/403";
     }
 
     /**
@@ -56,7 +56,7 @@ public class HomeController {
      */
     @RequestMapping(value = "/400")
     public String badRequest() {
-        return "400";
+        return "user/400";
     }
 
     /**
@@ -65,6 +65,6 @@ public class HomeController {
      */
     @RequestMapping(value = "/loginout")
     public String loginout() {
-        return "loginout";
+        return "user/loginout";
     }
 }
