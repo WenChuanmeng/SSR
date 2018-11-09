@@ -16,7 +16,7 @@ public class UserJpaRespositoeyTest extends SearchRoomApplicationTests {
     @Test
     public void testGetInfo() {
 
-        Optional<User> byId = userRepository.findById(1l);
-        Assert.assertEquals("waliwali", byId.get().getName());
+        User user = userRepository.findOne(1l);
+        Assert.assertEquals("wali", user.getName());
     }
 }

@@ -7,13 +7,14 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 @Configuration
-public class WebMVCConfig implements WebMvcConfigurer,ApplicationContextAware {
+public class WebMVCConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -22,14 +23,10 @@ public class WebMVCConfig implements WebMvcConfigurer,ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    /**
-     * 静态资源加载配置
-     * @param registry
-     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static");
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/");//不需要加static，加了之后会报404
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("/**").addResourceLocations("classpath:/");//不需要加static，加了之后会报404
     }
 
     /**
@@ -39,10 +36,9 @@ public class WebMVCConfig implements WebMvcConfigurer,ApplicationContextAware {
     @Bean
     @ConfigurationProperties(prefix = "spring.thymeleaf") //自定义的Thymeleaf需要配置此项
     public SpringResourceTemplateResolver templateResolver() {
-
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.applicationContext);
-        templateResolver.setCharacterEncoding("UTF-8");//thymeleaf字符格式
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -52,13 +48,15 @@ public class WebMVCConfig implements WebMvcConfigurer,ApplicationContextAware {
      */
     @Bean
     public SpringTemplateEngine templateEngine() {
-
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         //支持EL表达式
         templateEngine.setEnableSpringELCompiler(true);
-        //spring security 方言
-        SpringDi
+
+        //Thymeleaf 方言解析器
+        SpringSecurityDialect springSecurityDialect = new SpringSecurityDialect();
+        templateEngine.setDialect(springSecurityDialect);
+
         return templateEngine;
     }
 
@@ -68,7 +66,6 @@ public class WebMVCConfig implements WebMvcConfigurer,ApplicationContextAware {
      */
     @Bean
     public ThymeleafViewResolver viewResolver() {
-
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setTemplateEngine(templateEngine());
         return thymeleafViewResolver;
