@@ -55,7 +55,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter implements Application
 
         //Thymeleaf 方言解析器
         SpringSecurityDialect springSecurityDialect = new SpringSecurityDialect();
-        templateEngine.setDialect(springSecurityDialect);
+        templateEngine.addDialect(springSecurityDialect);
 
         return templateEngine;
     }

@@ -13,10 +13,4 @@ public class SearchRoomApplication {
     public static void main(String[] args) {
         SpringApplication.run(SearchRoomApplication.class, args);
     }
-
-    @RequestMapping("/hi")
-    @ResponseBody
-    public String hi() {
-        return "hi haha";
-    }
 }
