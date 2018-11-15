@@ -61,8 +61,8 @@ public class HomeController {
      * 登出页面
      * @return
      */
-    @RequestMapping(value = "/loginout")
+    @RequestMapping(value = "/logout/page")
     public String loginout() {
-        return "loginout";
+        return "logout";
     }
 }
