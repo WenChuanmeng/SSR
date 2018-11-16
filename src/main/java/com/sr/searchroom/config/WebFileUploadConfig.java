@@ -1,5 +1,11 @@
 package com.sr.searchroom.config;
 
+import com.google.gson.Gson;
+import com.qiniu.common.Zone;
+import com.qiniu.storage.BucketManager;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.util.Auth;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -46,5 +52,45 @@ public class WebFileUploadConfig {
         StandardServletMultipartResolver multipartResolver = new StandardServletMultipartResolver();
         multipartResolver.setResolveLazily(this.multipartProperties.isResolveLazily());
         return multipartResolver;
+    }
+
+    @Bean
+    public com.qiniu.storage.Configuration qiniuConfiguration() {
+        return new com.qiniu.storage.Configuration(Zone.zone0());
+    }
+
+    @Bean
+    public UploadManager uploadManager() {
+        return new UploadManager(qiniuConfiguration());
+    }
+
+    @Value("${qiniu.accessKey}")
+    private String accessKey;
+    @Value("${qiniu.secretKey}")
+    private String secretKey;
+    @Value("${qiniu.bucket}")
+    private String bucket;
+
+    /**
+     * 七牛云鉴权管理
+     * @return
+     */
+    @Bean
+    public Auth auth() {
+        return Auth.create(accessKey, secretKey);
+    }
+
+    /**
+     * 七牛云空间管理
+     * @return
+     */
+    @Bean
+    public BucketManager bucketManager() {
+        return new BucketManager(auth(), qiniuConfiguration());
+    }
+
+    @Bean
+    public Gson gson() {
+        return new Gson();
     }
 }
