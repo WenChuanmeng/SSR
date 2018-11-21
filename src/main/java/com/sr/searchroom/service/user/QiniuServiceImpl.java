@@ -60,6 +60,12 @@ public class QiniuServiceImpl implements IQiniuService,InitializingBean {
     public Response delete(String key) throws Exception {
         Response response = bucketManager.delete(bucket, key);
 
+        int flag = 0;
+        while (response.needRetry() && flag < 3) {
+            response = bucketManager.delete(this.bucket, key);
+            flag++;
+        }
+
         return response;
     }
 
