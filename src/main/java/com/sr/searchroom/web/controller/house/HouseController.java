@@ -1,16 +1,21 @@
 package com.sr.searchroom.web.controller.house;
 
 import com.sr.searchroom.base.ApiResponse;
+import com.sr.searchroom.entity.SupportAddress;
 import com.sr.searchroom.service.IAddressService;
 import com.sr.searchroom.service.ServiceMultiResult;
 import com.sr.searchroom.web.dto.SubwayDTO;
 import com.sr.searchroom.web.dto.SubwayStationDTO;
 import com.sr.searchroom.web.dto.SupportAddressDTO;
+import com.sr.searchroom.web.form.HouseForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * Created by 温小萌 on 2018/11/19

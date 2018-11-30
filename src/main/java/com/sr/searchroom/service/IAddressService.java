@@ -1,8 +1,11 @@
 package com.sr.searchroom.service;
 
+import com.sr.searchroom.entity.SupportAddress;
 import com.sr.searchroom.web.dto.SubwayDTO;
 import com.sr.searchroom.web.dto.SubwayStationDTO;
 import com.sr.searchroom.web.dto.SupportAddressDTO;
+
+import java.util.Map;
 
 /**
  * Created by 温小萌 on 2018/11/19
@@ -35,4 +38,12 @@ public interface IAddressService {
      * @return
      */
     ServiceMultiResult<SubwayStationDTO> getSubwayStations(Long subwayId);
+
+    /**
+     * 用于判断输入的数据是否正确
+     * @param cityEnName
+     * @param regionEnName
+     * @return
+     */
+    Map<SupportAddress.Level,SupportAddressDTO> findCityAndRegion(String cityEnName, String regionEnName);
 }

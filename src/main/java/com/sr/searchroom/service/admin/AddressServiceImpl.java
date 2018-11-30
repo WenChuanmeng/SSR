@@ -1,4 +1,4 @@
-package com.sr.searchroom.service.user;
+package com.sr.searchroom.service.admin;
 
 import com.sr.searchroom.entity.Subway;
 import com.sr.searchroom.entity.SubwayStation;
@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 温小萌 on 2018/11/19
@@ -92,5 +94,26 @@ public class AddressServiceImpl implements IAddressService {
             }
         }
         return new ServiceMultiResult<>(subwayStationDTOS.size(), subwayStationDTOS);
+    }
+
+    @Override
+    public Map<SupportAddress.Level, SupportAddressDTO> findCityAndRegion(String cityEnName, String regionEnName) {
+
+        Map<SupportAddress.Level, SupportAddressDTO> supportAddressDTOMap = new HashMap<>();
+
+        SupportAddress city = supportAddressRepository.findSupportAddressByEnName(cityEnName);
+
+        if (null != city) {
+
+            supportAddressDTOMap.put(SupportAddress.Level.CITY, modelMapper.map(city, SupportAddressDTO.class));
+        }
+
+        SupportAddress region = supportAddressRepository.findSupportAddressByEnName(regionEnName);
+
+        if (null != region) {
+            supportAddressDTOMap.put(SupportAddress.Level.REGION, modelMapper.map(region, SupportAddressDTO.class));
+        }
+
+        return supportAddressDTOMap;
     }
 }

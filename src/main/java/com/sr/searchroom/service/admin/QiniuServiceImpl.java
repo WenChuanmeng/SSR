@@ -1,4 +1,4 @@
-package com.sr.searchroom.service.user;
+package com.sr.searchroom.service.admin;
 
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -73,7 +73,7 @@ public class QiniuServiceImpl implements IQiniuService,InitializingBean {
     public void afterPropertiesSet() throws Exception {
 
         this.putPolicy = new StringMap();
-        putPolicy.put("returnBody", "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width),\"height\":$(imageInfo.height)}");
+        putPolicy.put("returnBody", "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":$(imageInfo.height)}");
     }
 
     /**
@@ -81,6 +81,6 @@ public class QiniuServiceImpl implements IQiniuService,InitializingBean {
      * @return
      */
     private String getUploadToken() {
-        return auth.uploadToken(bucket);
+        return auth.uploadToken(bucket, null, 3600, putPolicy);
     }
 }

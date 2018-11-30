@@ -11,4 +11,6 @@ import java.util.List;
 public interface SupportAddressRepository extends JpaRepository<SupportAddress, Long> {
     List<SupportAddress> findSupportAddressesByLevel(String level);
     List<SupportAddress> findSupportAddressesByBelongToAndLevel(String belongTo, String level);
+
+    SupportAddress findSupportAddressByEnName(String enName);
 }
